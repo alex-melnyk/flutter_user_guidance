@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class HomePage extends StatefulWidget {
   const HomePage({
     Key key,
-    this.duration = const Duration(milliseconds: 5000),
+    this.duration = const Duration(milliseconds: 2500),
   }) : super(key: key);
 
   final Duration duration;
@@ -14,14 +14,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
-  final _textTyping =
-      'Try running your application with "flutter run". You\'ll see the '
-      'application has a blue toolbar. Then, without quitting the app, try '
-      'changing the primarySwatch below to Colors.green and then invoke '
-      '"hot reload" (press "r" in the console where you ran "flutter run", '
-      'or simply save your changes to "hot reload" in a Flutter IDE).\n\n'
-      'Notice that the counter didn\'t reset back to zero; the application'
-      'is not restarted.';
+  final _textTyping = 'Tap on (+) button to increase the number';
 
   AnimationController _animationController;
   Animation _animation;
@@ -44,6 +37,8 @@ class _HomePageState extends State<HomePage>
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Stack(
       children: [
         Scaffold(
@@ -59,7 +54,7 @@ class _HomePageState extends State<HomePage>
                 ),
                 Text(
                   '$_counter',
-                  style: Theme.of(context).textTheme.headline4,
+                  style: theme.textTheme.headline4,
                 ),
               ],
             ),
@@ -72,35 +67,36 @@ class _HomePageState extends State<HomePage>
         ),
         Positioned.fill(
           child: ColorFiltered(
-              colorFilter: ColorFilter.mode(
-                Colors.black87,
-                BlendMode.srcOut,
-              ),
-              child: Stack(
-                children: [
-                  Container(
+            colorFilter: ColorFilter.mode(
+              Colors.black87,
+              BlendMode.srcOut,
+            ),
+            child: Stack(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    backgroundBlendMode: BlendMode.dstOut,
+                  ),
+                ),
+                Positioned(
+                  bottom: 22,
+                  right: 4,
+                  child: Container(
+                    margin: EdgeInsets.only(
+                      top: 80,
+                    ),
+                    width: 80,
+                    height: 80,
                     decoration: BoxDecoration(
                       color: Colors.white,
-                      backgroundBlendMode: BlendMode.dstOut,
+                      shape: BoxShape.circle,
                     ),
                   ),
-                  Positioned(
-                    bottom: 22,
-                    right: 4,
-                    child: Container(
-                      margin: EdgeInsets.only(
-                        top: 80,
-                      ),
-                      width: 80,
-                      height: 80,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        shape: BoxShape.circle,
-                      ),
-                    ),
-                  )
-                ],
-              )),
+                ),
+              ],
+            ),
+          ),
         ),
         Material(
           color: Colors.transparent,
@@ -108,7 +104,7 @@ class _HomePageState extends State<HomePage>
             alignment: Alignment.bottomCenter,
             child: Container(
               margin: EdgeInsets.only(
-                bottom: 120,
+                bottom: 160,
               ),
               padding: EdgeInsets.symmetric(
                 horizontal: 24.0,
@@ -126,9 +122,10 @@ class _HomePageState extends State<HomePage>
                     _textTyping.substring(0, textLength),
                     textAlign: TextAlign.left,
                     style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 18,
-                        color: Colors.white),
+                      fontWeight: FontWeight.w500,
+                      fontSize: 18,
+                      color: Colors.white,
+                    ),
                   );
                 },
               ),
