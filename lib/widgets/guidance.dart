@@ -107,34 +107,32 @@ class _GuidanceState extends State<Guidance> {
                   Colors.black87,
                   BlendMode.srcOut,
                 ),
-                child: Container(
-                  child: Stack(
-                    children: [
-                      Positioned.fill(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            backgroundBlendMode: BlendMode.dstOut,
-                          ),
+                child: Stack(
+                  children: [
+                    Positioned.fill(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          backgroundBlendMode: BlendMode.dstOut,
                         ),
                       ),
-                      ValueListenableBuilder<GuidanceValue>(
-                        valueListenable: widget.controller,
-                        builder: (context, value, child) {
-                          final userGuide = widget.guides[value.step];
+                    ),
+                    ValueListenableBuilder<GuidanceValue>(
+                      valueListenable: widget.controller,
+                      builder: (context, value, child) {
+                        final userGuide = widget.guides[value.step];
 
-                          return AnimatedPositioned.fromRect(
+                        return AnimatedPositioned.fromRect(
+                          duration: widget.duration,
+                          rect: userGuide.rect,
+                          child: AnimatedContainer(
                             duration: widget.duration,
-                            rect: userGuide.rect,
-                            child: AnimatedContainer(
-                              duration: widget.duration,
-                              decoration: userGuide.decoration,
-                            ),
-                          );
-                        },
-                      ),
-                    ],
-                  ),
+                            decoration: userGuide.decoration,
+                          ),
+                        );
+                      },
+                    ),
+                  ],
                 ),
               ),
             ),
